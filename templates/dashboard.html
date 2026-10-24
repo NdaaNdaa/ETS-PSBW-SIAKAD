@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<!-- Header Dashboard -->
+<div class="app-content-header">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-6">
+        <h1 class="mb-0 fs-3">Dashboard SIAKAD</h1>
+      </div>
+      <div class="col-sm-6">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb float-sm-end">
+            <li class="breadcrumb-item">
+              <a href="{{ url_for('dashboard') }}">Home</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+              Dashboard
+            </li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="app-content">
+  <div class="container-fluid">
+
+    <!-- Ringkasan Statistik -->
+    <div class="row">
+
+      <div class="col-lg-4 col-12">
+        <div class="card text-bg-primary mb-4">
+          <div class="card-body">
+            <h3 class="mb-2">120</h3>
+            <p class="mb-0">Total Mahasiswa</p>
+          </div>
+          <div class="card-footer">
+            <i class="bi bi-people me-1"></i>
+            Data mahasiswa terdaftar
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-12">
+        <div class="card text-bg-success mb-4">
+          <div class="card-body">
+            <h3 class="mb-2">15</h3>
+            <p class="mb-0">Total Mata Kuliah</p>
+          </div>
+          <div class="card-footer">
+            <i class="bi bi-book me-1"></i>
+            Mata kuliah tersedia
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-12">
+        <div class="card text-bg-warning mb-4">
+          <div class="card-body">
+            <h3 class="mb-2">Aktif</h3>
+            <p class="mb-0">Status Sistem</p>
+          </div>
+          <div class="card-footer">
+            <i class="bi bi-check-circle me-1"></i>
+            Sistem informasi akademik
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Tabel Mahasiswa -->
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+
+          <div class="card-header">
+            <h3 class="card-title">
+              <i class="bi bi-people me-2"></i>
+              Data Mahasiswa Terbaru
+            </h3>
+          </div>
+
+          <div class="card-body table-responsive">
+            <table class="table table-bordered table-striped align-middle">
+              <thead>
+                <tr>
+                  <th>No.</th>
+                  <th>NIM</th>
+                  <th>Nama Mahasiswa</th>
+                  <th>Program Studi</th>
+                  <th>Semester</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>240001</td>
+                  <td>Yudi Knalpot</td>
+                  <td>Sistem Teknologi dan Informasi</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>240002</td>
+                  <td>Dimas Ukin</td>
+                  <td>Sistem Teknologi dan Informasi</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>240003</td>
+                  <td>Bayu Stop Kontak</td>
+                  <td>Sistem Teknologi dan Informasi</td>
+                  <td>3</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card-footer text-secondary">
+            Menampilkan 3 data contoh mahasiswa.
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+{% endblock %}

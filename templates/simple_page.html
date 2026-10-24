@@ -1,0 +1,248 @@
+
+{% extends "base.html" %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+
+<div class="app-content-header">
+  <div class="container-fluid">
+    <h1 class="mb-0 fs-3">{{ page_title }}</h1>
+  </div>
+</div>
+
+<div class="app-content">
+  <div class="container-fluid">
+
+    {% if page_title == "Mata Kuliah" %}
+
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">
+          <i class="bi bi-book me-2"></i>Daftar Mata Kuliah
+        </h3>
+      </div>
+
+      <div class="card-body table-responsive">
+        <table class="table table-bordered table-striped align-middle">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Kode</th>
+              <th>Nama Mata Kuliah</th>
+              <th>SKS</th>
+              <th>Semester</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>PSBW</td>
+              <td>Pemrograman Sistem Berbasis Web</td>
+              <td>3</td>
+              <td>3</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>JARKOM</td>
+              <td>Jaringan Komputer</td>
+              <td>3</td>
+              <td>3</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>MDKS</td>
+              <td>Manajemen Data dan Keamanan Siber</td>
+              <td>3</td>
+              <td>3</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>MSI</td>
+              <td>Manajemen Sistem Informasi</td>
+              <td>3</td>
+              <td>3</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card-footer text-secondary">
+        Menampilkan 4 data contoh mata kuliah.
+      </div>
+    </div>
+
+    {% elif page_title == "Profil" %}
+
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">
+          <i class="bi bi-person-circle me-2"></i>Profil Mahasiswa
+        </h3>
+      </div>
+      <div class="card-body">
+        <dl class="row">
+          <dt class="col-sm-3">Nama</dt>
+          <dd class="col-sm-9">Mahasiswa SIAKAD</dd>
+
+          <dt class="col-sm-3">NIM</dt>
+          <dd class="col-sm-9">240001</dd>
+
+          <dt class="col-sm-3">Program Studi</dt>
+          <dd class="col-sm-9">Sistem Teknologi dan Informasi</dd>
+
+          <dt class="col-sm-3">Semester</dt>
+          <dd class="col-sm-9">3</dd>
+        </dl>
+      </div>
+    </div>
+
+    
+    {% elif page_title == "Tambah Mahasiswa" %}
+
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">
+          <i class="bi bi-person-plus me-2"></i>Form Tambah Mahasiswa
+        </h3>
+      </div>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% for category, message in messages %}
+    <div class="alert alert-{{ category }}" role="alert">
+      {{ message }}
+    </div>
+  {% endfor %}
+{% endwith %}
+
+      <form method="POST" action="{{ url_for('tambah_mahasiswa') }}">
+        <div class="card-body">
+
+          <div class="mb-3">
+            <label for="nim" class="form-label">NIM</label>
+            <input
+              type="text"
+              class="form-control"
+              id="nim"
+              name="nim"
+              placeholder="Masukkan NIM mahasiswa"
+              required
+            >
+          </div>
+
+          <div class="mb-3">
+            <label for="nama" class="form-label">Nama Mahasiswa</label>
+            <input
+              type="text"
+              class="form-control"
+              id="nama"
+              name="nama"
+              placeholder="Masukkan nama mahasiswa"
+              required
+            >
+          </div>
+
+          <div class="mb-3">
+            <label for="prodi" class="form-label">Program Studi</label>
+            <input
+              type="text"
+              class="form-control"
+              id="prodi"
+              name="prodi"
+              placeholder="Masukkan program studi"
+              required
+            >
+          </div>
+
+          <div class="mb-3">
+            <label for="semester" class="form-label">Semester</label>
+            <select
+              class="form-select"
+              id="semester"
+              name="semester"
+              required
+            >
+              <option value="">Pilih semester</option>
+              <option value="1">Semester 1</option>
+              <option value="2">Semester 2</option>
+              <option value="3">Semester 3</option>
+              <option value="4">Semester 4</option>
+              <option value="5">Semester 5</option>
+              <option value="6">Semester 6</option>
+              <option value="7">Semester 7</option>
+              <option value="8">Semester 8</option>
+            </select>
+          </div>
+
+          <div id="pesanForm" class="alert d-none" role="alert"></div>
+
+        </div>
+
+        <div class="card-footer">
+          <button type="submit" class="btn btn-primary">
+            <i class="bi bi-save me-1"></i>Simpan
+          </button>
+
+          <a href="{{ url_for('mahasiswa') }}"
+             class="btn btn-secondary ms-2">
+            <i class="bi bi-arrow-left me-1"></i>Kembali
+          </a>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      document.getElementById("formTambahMahasiswa").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const nim = document.getElementById("nim").value.trim();
+        const nama = document.getElementById("nama").value.trim();
+        const prodi = document.getElementById("prodi").value.trim();
+        const semester = document.getElementById("semester").value;
+        const pesan = document.getElementById("pesanForm");
+
+        if (!nim || !nama || !prodi || !semester) {
+          pesan.className = "alert alert-danger";
+          pesan.textContent = "Semua kolom wajib diisi.";
+          return;
+        }
+
+        pesan.className = "alert alert-success";
+        pesan.textContent =
+          "Validasi berhasil! Formulir mahasiswa siap diproses.";
+      });
+    </script>
+
+
+    {% elif page_title == "Bantuan" %}
+
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">
+          <i class="bi bi-question-circle me-2"></i>Panduan Penggunaan
+        </h3>
+      </div>
+      <div class="card-body">
+        <p>Selamat datang di Sistem Informasi Akademik (SIAKAD).</p>
+        <ol>
+          <li>Pilih Dashboard untuk melihat ringkasan informasi akademik.</li>
+          <li>Pilih Data Mahasiswa untuk melihat tabel mahasiswa.</li>
+          <li>Pilih Mata Kuliah untuk melihat daftar mata kuliah.</li>
+          <li>Pilih Profil untuk melihat informasi profil mahasiswa.</li>
+        </ol>
+        <p class="text-secondary mb-0">
+          Gunakan menu navigasi di sebelah kiri untuk berpindah halaman.
+        </p>
+      </div>
+    </div>
+
+    {% endif %}
+
+    <a href="{{ url_for('dashboard') }}" class="btn btn-primary mt-3">
+      <i class="bi bi-house me-1"></i>Kembali ke Dashboard
+    </a>
+
+  </div>
+</div>
+
+{% endblock %}
